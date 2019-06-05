@@ -1,0 +1,59 @@
+header{
+    background-image: url('../images/bike-background.jpg');
+    min-height:50px;
+    height:300px;
+    max-height:400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background-position-y: -133px;*/
+}
+.panier header{
+    background-image: none;
+    height:80px;
+}
+header .row.heading{
+    background-color: #343A40;
+    height:70px;
+}
+header .row.heading img{
+    height:75px;
+}
+header .row h2{
+    color:white;
+    font-size:16px;
+    margin-top: 25px;
+}
+
+.row.row-card img{
+    width:100%;
+}
+
+.card-deck{
+    margin-top: 30px;
+}
+
+.row-card{
+    padding:0px;
+    
+}
+.card{
+    padding:5px;
+    margin-top: 30px;
+}
+
+
+.details{
+    justify-content: center;
+    display: flex;
+}
+h5{
+    text-transform:uppercase;
+}
+.card-text{
+    margin-right:5px;
+    display:inline;
+}
+
+.panier .container table img{
+    width:200px;
+}
