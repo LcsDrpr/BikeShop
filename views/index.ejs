@@ -21,13 +21,22 @@
         <% for(var i = 0; i<velos.length; i++){%>
             <div class="card col-sm-6 col-md-4">
                 <img class="card-img-top" src="<%= velos[i].image %>" alt="">
-                <div class="card-body text-center">
+                <div class="card-body text-center" name="descriptionproduit">
                     <h5 class="card-title text-center"><%= velos[i].model %></h5>
-                    <p class="card-text"><%= velos[i].price %> €</p>           
-                    <a href="#" class="btn btn-outline-info">Buy</a>
+                    <p name="modelprice" class="card-text"><%= velos[i].price %> €</p>
+                    <form action="/" method="post">
+                        <input type="hidden" name="image" value="<%= velos[i].image %>">
+                        <input type="hidden" name="model" value="<%= velos[i].model %>">
+                        <input type="hidden" name="price" value="<%= velos[i].price %>">
+                        <input type="hidden" name="quantity" value="1">
+                        <button class="btn btn-outline-info">Buy</button>
+                    </form>
                 </div>
             </div>
+
         <% } %>
+
+        <p>coucou</p>
 
     </div>
 

@@ -57,7 +57,10 @@
                             <%= boughtBike[i].model %>
                         </td>
                         <td class='quantity'>
-                            <input type="text" value="<%= boughtBike[i].quantity %>"> <a href="#" class="btn btn-outline-info"><i class="fas fa-sync"></i></a>
+                            <form action="/update" method="POST">
+                                <input type="text" value="<%= boughtBike[i].quantity %>" name="quantity">
+                                <button type="submit" name="position" href="" value="<%= i %>" class="btn btn-outline-info"><i class="fas fa-sync"></i></button> 
+                            </form>
                         </td>
                         <td class='price'>
                             <%= boughtBike[i].price %> €
@@ -65,7 +68,7 @@
                         <td class="d-none d-md-block total">
                             <%= totalPriceUnit %> €
                         </td>
-                        <td><a href="#" class="btn btn-outline-info"><i class="far fa-trash-alt"></i></a></td>
+                        <td><a href="/deleteitem?position=<%=i%>" class="btn btn-outline-info"><i class="far fa-trash-alt"></i></a></td>
                     </tr>
                     <% } %>
                 </tbody>

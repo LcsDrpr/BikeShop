@@ -5,6 +5,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+report.20190605.154220.12909.0.001.json
+
 # Runtime data
 pids
 *.pid

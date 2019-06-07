@@ -10,24 +10,86 @@ var velos = [
   {model : "Bike 6",price : 250,quantity : 0,image : "../images/bike-6.jpg"}
   ];
 
-  var boughtBike = [
-    {model : "Bike 3",price : 400,quantity : 2,image : "../images/bike-3.jpg"},
-    {model : "Bike 4",price : 350,quantity : 1,image : "../images/bike-4.jpg"}
-  ]
 
   /*var totalPriceUnit = boughtBike.quantity * boughtBike.price;*/
 
-
+  
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title :"produits",velos }
+
+  if(req.session.boughtBike == undefined){
+    req.session.boughtBike = [];
+  }
+  
+  res.render('index', { title :"produits",velos}
+  );
+});
+
+router.post('/', function(req, res, next) {
+  /*for(i=0;i<boughtBike.length;i++){
+    if(boughtBike[i].model != req.body){
+      boughtBike.push(req.body);
+    };
+  };*/
+
+  console.log(req.session.boughtBike);
+
+  var mustbeUpdated = false;
+  for (var i = 0; i < req.session.boughtBike.length; i++) {
+    if (req.body.model == req.session.boughtBike[i].model) {
+       mustbeUpdated = true;
+       req.session.boughtBike.quantity++
+    }
+  }
+  if (mustbeUpdated == false) {
+
+    req.session.boughtBike.push(
+       {
+          name: req.body.model,
+          price: req.body.price,
+          images: req.body.image,
+          quantity: req.body.quantity 
+       }
+     );
+  }
+
+  //req.session.boughtBike.push(req.body);
+
+  res.render('index', { title :"produits",velos, boughtBike : req.session.boughtBike }
   );
 });
 
 router.get('/shop', function(req, res, next) {
-  res.render('shop', { title :'shop',boughtBike }
+
+  res.render('shop', { title :'shop',boughtBike : req.session.boughtBike}
   );
+});
+
+router.post('/update', function(req, res, next) {
+  console.log('coucou');
+  console.log(req.body);
+ 
+  if (req.body.quantity == 0) {
+    req.session.boughtBike.splice(req.body.position, 1);
+ } else {
+  req.session.boughtBike[req.body.position].quantity = req.body.quantity;
+ }
+
+
+  res.render('shop', { title :'shop',boughtBike : req.session.boughtBike}
+  );
+});
+
+
+router.get('/deleteitem', function(req, res, next) {
+    var positionItem = req.query.position;
+    var positionItemNext = positionItem + 1;
+    req.session.boughtBike.splice(positionItem,1);
+
+  res.render('shop', { title :'shop',boughtBike : req.session.boughtBike}
+  );
+  
 });
 
 module.exports = router;
