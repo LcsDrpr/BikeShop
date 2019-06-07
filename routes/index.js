@@ -46,10 +46,10 @@ router.post('/', function(req, res, next) {
 
     req.session.boughtBike.push(
        {
-          name: req.body.model,
+          model: req.body.model,
           price: req.body.price,
-          images: req.body.image,
-          quantity: req.body.quantity 
+          image: req.body.image,
+          quantity: req.body.quantity
        }
      );
   }
@@ -71,10 +71,10 @@ router.post('/update', function(req, res, next) {
   console.log(req.body);
  
   if (req.body.quantity == 0) {
-    req.session.boughtBike.splice(req.body.position, 1);
- } else {
-  req.session.boughtBike[req.body.position].quantity = req.body.quantity;
- }
+      req.session.boughtBike.splice(req.body.position, 1);
+  } else {
+    req.session.boughtBike[req.body.position].quantity = req.body.quantity;
+  }
 
 
   res.render('shop', { title :'shop',boughtBike : req.session.boughtBike}
