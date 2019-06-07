@@ -80,6 +80,26 @@
             </table>
 
         </div>
+
+        <div class="row" id="card-checkout">
+                <div class="col-12 text-right checkoutbutton">
+                  <form action="/checkout" method="POST">
+                    <script
+                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key=""
+                      data-amount="100"
+                      data-name="Name"
+                      data-description="description"
+                      data-shipping-address="true"
+                      data-label="Checkout"
+                      data-image="h"
+                      data-locale="auto"
+                      data-currency="usd">
+                    </script>
+                  </form>
+                </div>
+              </div>
+
     </main>
 
 
