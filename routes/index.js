@@ -10,6 +10,9 @@ var velos = [
   {model : "Bike 6",price : 250,quantity : 0,image : "../images/bike-6.jpg"}
   ];
 
+  const stripe = require('stripe')('sk_test_8QgSbCzAZzlfPvNWnfpXAKuj005dzO2H0j');
+  
+
 
   /*var totalPriceUnit = boughtBike.quantity * boughtBike.price;*/
 
@@ -33,8 +36,6 @@ router.post('/', function(req, res, next) {
     };
   };*/
 
-  console.log(req.session.boughtBike);
-
   var mustbeUpdated = false;
   for (var i = 0; i < req.session.boughtBike.length; i++) {
     if (req.body.model == req.session.boughtBike[i].model) {
@@ -54,8 +55,6 @@ router.post('/', function(req, res, next) {
      );
   }
 
-  //req.session.boughtBike.push(req.body);
-
   res.render('index', { title :"produits",velos, boughtBike : req.session.boughtBike }
   );
 });
@@ -67,8 +66,6 @@ router.get('/shop', function(req, res, next) {
 });
 
 router.post('/update', function(req, res, next) {
-  console.log('coucou');
-  console.log(req.body);
  
   if (req.body.quantity == 0) {
       req.session.boughtBike.splice(req.body.position, 1);
@@ -91,5 +88,31 @@ router.get('/deleteitem', function(req, res, next) {
   );
   
 });
+
+router.post('/checkout', function(req, res, next) {
+
+  var totalPrice = 0;
+  for(i=0; i<req.session.boughtBike.length;i++){
+    var totalPriceUnit = req.session.boughtBike[i].quantity * req.session.boughtBike[i].price;
+    totalPrice = totalPrice + totalPriceUnit;
+  }
+
+
+  const charge = stripe.charges.create({
+    amount: totalPrice*100,
+    currency: 'eur',
+    description: 'Bravo vous avez acheté ces vélos : ', 
+    source: req.body.stripeToken,
+  });
+
+  req.session.boughtBike = [];
+
+
+res.render('paiement', { title :'shop',boughtBike : req.session.boughtBike}
+);
+
+});
+
+
 
 module.exports = router;
