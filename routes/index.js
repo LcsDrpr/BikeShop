@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
     req.session.boughtBike = [];
   }
   
-  res.render('index', { title :"produits",velos}
+  res.render('index', { title :"produits", velos, boughtBike:req.session.boughtBike}
   );
 });
 
